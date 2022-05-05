@@ -1,25 +1,31 @@
 const express = require('express');
 
-class Server {
+class Server{
 
     constructor(){
-        this.app = express()
-        this.port = process.env.PORT;
-
-        this.middlewares()
-        this.routes()
+        this.app = express();
+        this.port = process.env.SERVER_PORT;
+        
+        this.middlewares();
+        this.routes();
     }
 
-    middlewares(){
-        this.app.use(express.static('public'))
+    middlewares(){ 
+        //Displays the requests to the server via console
+        this.app.use((req, res, next) => {
+            console.log(`Request -> ${req.url}, | Method -> ${req.method}`);
+            next();
+        });
     }
 
     routes(){
-        this.app.use('/login', require('../routes/routes'));
+        this.app.use('/login', require('../routes/login'));
     }
 
     listen(){
-        this.app.listen(this.port, () => {console.log('Ok')});
+        this.app.listen(this.port, () => {
+            console.log(`Server Running on http://127.0.0.1:${this.port}/`);
+        });
     }
 }
 
