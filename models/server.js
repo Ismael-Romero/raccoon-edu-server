@@ -19,13 +19,18 @@ class Server{
     }
 
     routes(){
-        this.app.use('/login', require('../routes/login'));
-        this.app.use('/newtask/', require('../routes/new_task'));
-        this.app.use('/getsubject/', require('../routes/get_subject'));
-        this.app.use('/gettaskteach/', require('../routes/get_task_teach'));
-        this.app.use('/deletetask/', require('../routes/delete_task'));
-        this.app.use('/editTask/', require('../routes/get_uptask'));
-        this.app.use('/updatetask/',require('../routes/update_task'))
+        this.app.use('/login', require('../routes/login'));                     // Access login
+        this.app.use('/newtask/', require('../routes/new_task'));               // Create a new task
+        this.app.use('/getsubject/', require('../routes/get_subject'));         // Get all subjects
+        this.app.use('/gettaskteach/', require('../routes/get_task_teach'));    // Get all task by teach
+        this.app.use('/deletetask/', require('../routes/delete_task'));         // Delete task (only teach)
+        this.app.use('/editTask/', require('../routes/get_uptask'));            // Get task for update(only teach)
+        this.app.use('/updatetask/',require('../routes/update_task'))           // Update task (only teach)
+        this.app.use('/getmytask/',require('../routes/get_myTask'));            
+        this.app.use('/sendmytask/',require('../routes/sendMyTask'));            
+        this.app.use('/getmytaskend/',require('../routes/get_myTaskEnd'));            
+
+
     }
 
     listen(){

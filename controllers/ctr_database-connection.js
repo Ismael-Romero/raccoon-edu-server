@@ -83,6 +83,32 @@ const updateTask = (params, callback) => {
         callback(results[0]);
     });
 }
+
+const getMyTasks = (params, callback) => {
+    const sql = `call get_my_tasks("${params.student}")`;
+    connection.query(sql, (err, results, fields) => {
+        if(err) {errorMessage(err)}
+        callback(results[0])
+    });
+}
+
+const sendMyTask = (params, callback) => {
+    const sub_id = parseInt(params.sub);
+    const _status = parseInt(params.status);
+    const sql = `call send_task(${sub_id}, "${params.student}", ${_status}, "${params.file}")`;
+    connection.query(sql, (err, results, fields) => {
+        if(err) {errorMessage(err)}
+        callback(results[0])
+    });
+}
+
+const getMyTaskEnd = (params, callback) => {
+    const sql = `call getMyTaskEnd("${params.student}")`;
+    connection.query(sql, (err, results, fields) => {
+        if(err) {errorMessage(err)}
+        callback(results[0])
+    });
+}
 //Error or success messages
 const okMessage = (conn) => {
     console.log(`Database connection established`);
@@ -105,5 +131,8 @@ module.exports = {
     getTaskTeach, 
     deteleTask, 
     getTaskUpdate,
-    updateTask
+    updateTask,
+    getMyTasks,
+    sendMyTask,
+    getMyTaskEnd
 };
